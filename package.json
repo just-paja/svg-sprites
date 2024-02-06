@@ -1,0 +1,21 @@
+{
+  "name": "root",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "npm-isolate bundle"
+  },
+  "author": "pavel@zak.global",
+  "type": "module",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@optimics/npm-isolate": "^0.8.8",
+    "@optimics/repo": "^0.8.5",
+    "lerna": "^7.4.2"
+  },
+  "dependencies": {}
+}
