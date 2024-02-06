@@ -1,6 +1,6 @@
-import * from './default.js';
-import * from './entrypoint.js';
-import * from './global.js';
-import * from './inline.js';
-import * from './module.js';
-import * from './raw.js';
+import "./default.js";
+import "./entrypoint.js";
+import "./global.js";
+import "./inline.js";
+import "./module.js";
+import "./raw.js";

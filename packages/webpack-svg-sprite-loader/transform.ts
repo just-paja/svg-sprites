@@ -1,6 +1,6 @@
-type SvgAttributes = Record<string, string | boolean | true | false>;
+export type SvgAttributes = Record<string, string | boolean | true | false>;
 
-interface TransformedSvg {
+export interface TransformedSvg {
   attributes: SvgAttributes;
   content: string;
 }
