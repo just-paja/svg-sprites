@@ -4,11 +4,13 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "npm-isolate bundle",
-    "build:examples": "lerna run build --scope webpack-svg-sprite-loader-example"
+    "build": "lerna run build",
+    "build:loaders": "lerna run build --scope webpack-svg-sprite-loader --scope next-svg-sprite-loader",
+    "build:loader:webpack": "lerna run build --scope webpack-svg-sprite-loader",
+    "build:examples": "lerna run build --scope webpack-example",
+    "clean": "lerna run clean"
   },
   "author": "pavel@zak.global",
-  "type": "module",
   "license": "MIT",
   "workspaces": [
     "packages/**"
@@ -16,7 +18,17 @@
   "devDependencies": {
     "@optimics/npm-isolate": "^0.8.8",
     "@optimics/repo": "^0.8.5",
-    "lerna": "^7.4.2"
-  },
-  "dependencies": {}
+    "@types/node": "^20.11.16",
+    "@types/react-dom": "^18.2.18",
+    "css-minimizer-webpack-plugin": "^6.0.0",
+    "html-webpack-plugin": "^5.6.0",
+    "lerna": "^7.4.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "terser-webpack-plugin": "^5.3.10",
+    "ts-loader": "^9.5.1",
+    "webpack": "^5.90.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
 }

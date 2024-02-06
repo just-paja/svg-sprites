@@ -1,9 +1,8 @@
 {
-  "name": "webpack-svg-sprite-loader-example",
+  "name": "webpack-example",
   "private": true,
   "version": "1.0.0",
   "description": "",
-  "scripts": {},
   "author": "pavel@zak.global",
   "type": "module",
   "license": "MIT",
@@ -26,10 +25,13 @@
     "svgo"
   ],
   "scripts": {
-    "build": "tsc"
+    "build": "webpack --config=./webpack.config.js --mode=production",
+    "dev": "webpack serve --config=./webpack.config.js --mode=development",
+    "clean": "rm -rf dist"
   },
   "dependencies": {
     "loader-utils": "^3.2.1",
-    "svgo": "^3.2.0"
+    "svgo": "^3.2.0",
+    "webpack-svg-sprite-loader": "file:../webpack-svg-sprite-loader"
   }
 }

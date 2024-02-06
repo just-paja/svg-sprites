@@ -1,12 +1,12 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "types": ["node"],
     "baseUrl": ".",
     "outDir": "./dist"
   },
-  "include": ["./*.ts"],
-  "exclude": [
-    "./dist/**/*",
-    "svg.d.ts"
+  "include": [
+    "./*.ts",
+    "webpack-svg-sprite-loader/types.d.ts"
   ]
 }

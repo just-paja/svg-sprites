@@ -44,37 +44,13 @@ The default behaviour applies to `.svg` files without recognizable prefix. By
 default, the loader will put these into the [Global Shared
 Sprite](#globalsharedsprite), but you can change this.
 
-`global | entrypoint | inline | raw`
+`global | shared | module | entry | raw  | inline`
 
-### `isGlobal`
+### `typeDetector`
 
-Override detection of [Global Shared Sprite](#globalsharedsprite) SVGs.
+Override detection of the SVG import type. See [defaultBehavior](#defaultbehavior) for allowed values.
 
-`(resourcePath: string) => boolean`
-
-### `isModule`
-
-Override detection of [Module Sprite](#modulesprite) SVGs.
-
-`(resourcePath: string) => boolean`
-
-### `isEntrypoint`
-
-Override detection of [Entrypoint Sprite](#entrypointsprite) SVGs.
-
-`(resourcePath: string) => boolean`
-
-### `isInline`
-
-Override detection of [Inline Import](#inlineimport) SVGs.
-
-`(resourcePath: string) => boolean`
-
-### `isRaw`
-
-Override detection of [Raw Import](#rawimport) SVGs.
-
-`(resourcePath: string) => boolean`
+`(resourcePath: string) => SpriteType`
 
 ## Plug in
 

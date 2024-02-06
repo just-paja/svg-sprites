@@ -9,20 +9,12 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,
     "inlineSourceMap": true,
-    "lib": ["es2022", "dom"],
-    "module": "ESNext",
-    "moduleResolution": "node",
+    "jsx": "react",
+    "lib": ["es2022"],
     "strict": true,
-    "target": "es6",
-    "types": ["jest", "@types/jest"],
+    "target": "es2022",
+    "module": "commonjs",
+    "types": ["node"],
     "useUnknownInCatchVariables": false
-  },
-  "include": ["packages/**/*"],
-  "exclude": [
-    "**/dist/**",
-    "**/node_modules/**",
-    "**/__tests__/**",
-    "node_modules",
-    "../../node_modules"
-  ]
+  }
 }
