@@ -63,8 +63,10 @@ export class SvgSpritePlugin {
   readonly typeDetector: SpriteTypeDetector;
   checksums = new Map<string, string>();
   sprites = new Map<string, SpriteMap>();
-  outputPath = 'sprites'
-  placeholder: string
+  outputFolder = 'sprites'
+  outputPath = ''
+  publicPath = ''
+  placeholder = ''
   placeholderChar = '␚'
 
   constructor(options?: SvgSpritePluginOptions) {
@@ -72,7 +74,18 @@ export class SvgSpritePlugin {
     this.optimize = options?.optimize ?? true;
     this.symbolParser = options?.symbolParser ?? parseSymbolId;
     this.typeDetector = options?.typeDetector ?? detectImportType;
-    this.placeholder = this.placeholderChar.repeat(this.outputPath.length + 37);
+  }
+
+  apply(compiler: Compiler): void {
+    this.outputPath = this.outputFolder
+    this.publicPath = [
+      compiler.options.output.publicPath,
+      this.outputPath
+    ].filter(Boolean).join('/').replace(/\/\/+/g, '/')
+    const hashLen = 37
+    const holderLen = this.publicPath.length
+    this.placeholder = this.placeholderChar.repeat(holderLen + hashLen);
+    this.tapInCompilation(compiler);
   }
 
   detectImportType(resourcePath: string): SpriteType {
@@ -112,10 +125,6 @@ export class SvgSpritePlugin {
       throw new Error(`Sprite ${spriteFilePath} was not found`);
     }
     return sprite;
-  }
-
-  apply(compiler: Compiler): void {
-    this.tapInCompilation(compiler);
   }
 
   tapInCompilation(compiler: Compiler): void {
