@@ -4,7 +4,7 @@ import type { Config as SvgoConfig } from "svgo";
 
 import webpack from "webpack";
 
-import { createHash } from "crypto";
+import { hashStr } from "./checksum.js";
 import { join, relative } from "path";
 import { pluginName } from "./constants.js";
 import { optimize } from "svgo";
@@ -28,10 +28,6 @@ export interface SvgSpritePluginOptions {
   optimize: boolean;
   symbolParser: SymbolIdParser;
   typeDetector: SpriteTypeDetector;
-}
-
-function hashStr(str: string): string {
-  return createHash("md5").update(str).digest("hex");
 }
 
 function parseSymbolId(resourcePath: string, rootPath: string): string {
@@ -123,7 +119,7 @@ export class SvgSpritePlugin {
   }
 
   tapInCompilation(compiler: Compiler): void {
-    compiler.hooks.thisCompilation.tap(pluginName, (compilation) => {
+    compiler.hooks.compilation.tap(pluginName, (compilation) => {
       this.tapInProcessAssets(compilation);
     });
   }

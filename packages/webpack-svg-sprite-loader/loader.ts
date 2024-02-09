@@ -1,6 +1,7 @@
 import type { SvgSpritePlugin } from "./plugin.js";
 import type { Compiler, LoaderDefinition } from "webpack";
 
+import { hashStr } from "./checksum.js";
 import { pluginName } from "./constants.js";
 import { SvgAttributes, transformSvg } from "./transform.js";
 
@@ -45,6 +46,7 @@ export const SvgSpriteLoader: LoaderDefinition = function (
   const spritePath = plugin.getSpriteTarget(resourcePath, type, compilation);
   plugin.addSpriteSvg(spritePath, { resourcePath, symbolId, attributes, content });
   return `export default ${JSON.stringify({
+    checksum: hashStr(iconSource),
     symbolId,
     spritePath: plugin.placeholder,
     attributes,
