@@ -44,6 +44,7 @@ export const SvgSpriteLoader: LoaderDefinition = function (
     return `export default ${JSON.stringify(content)}`;
   }
   const spritePath = plugin.getSpriteTarget(resourcePath, type, compilation);
+  this.cacheable(false)
   plugin.addSpriteSvg(spritePath, { resourcePath, symbolId, attributes, content });
   return `export default ${JSON.stringify({
     checksum: hashStr(iconSource),
