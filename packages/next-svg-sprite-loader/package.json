@@ -1,7 +1,7 @@
 {
   "name": "next-svg-sprite-loader",
   "version": "1.0.0",
-  "description": "",
+  "description": "Load SVGs into webpack and split them into sprites at will",
   "author": "pavel@zak.global",
   "type": "commonjs",
   "license": "MIT",

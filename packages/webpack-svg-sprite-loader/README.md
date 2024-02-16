@@ -46,11 +46,29 @@ Sprite](#globalsharedsprite), but you can change this.
 
 `global | shared | module | entry | raw  | inline`
 
+### `optimize`
+
+Turn on or off SVG optimization By default on.
+
+`boolean`
+
+### outputFolder
+
+Folder that will contain built sprites. Default: `'sprites'`
+
+`string`
+
 ### `typeDetector`
 
 Override detection of the SVG import type. See [defaultBehavior](#defaultbehavior) for allowed values.
 
 `(resourcePath: string) => SpriteType`
+
+### `symbolParser`
+
+Override the default symbol ID parsing function
+
+`(resourcePath: string, rootPath: string) => string`
 
 ## Plug in
 
@@ -148,6 +166,21 @@ Name your file with `.inline.svg` suffix. This will return SVG string
 import HelloWorld from './hello-world.inline.svg`
 console.log(HelloWorld)
 // '<svg>...</svg>'
+```
+
+## TypeScript
+
+You will need to cast your SVG imports at your own. Create a `svg.d.ts` file
+in your project:
+
+```
+import type { SvgSymbolImport } from 'webpack-svg-sprite-loader';
+
+// based on your import paths
+declare module '*.module.svg' {
+	const content: SvgSymbolImport;
+	export default content;
+}
 ```
 
 ## Caveats
