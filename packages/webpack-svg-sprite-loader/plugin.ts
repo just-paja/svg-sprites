@@ -24,11 +24,11 @@ export interface ContentfulSvgSymbol extends SvgSymbol {
 }
 
 export interface SvgSpritePluginOptions {
-  defaultBehavior: SpriteType;
-  optimize: boolean;
-  symbolParser: SymbolIdParser;
-  typeDetector: SpriteTypeDetector;
-  outputFolder: string;
+  defaultBehavior?: SpriteType;
+  optimize?: boolean;
+  symbolParser?: SymbolIdParser;
+  typeDetector?: SpriteTypeDetector;
+  outputFolder?: string;
 }
 
 function parseSymbolId(resourcePath: string, rootPath: string): string {
@@ -64,28 +64,28 @@ export class SvgSpritePlugin {
   readonly typeDetector: SpriteTypeDetector;
   checksums = new Map<string, string>();
   sprites = new Map<string, SpriteMap>();
-  outputFolder: string
-  outputPath = ''
-  publicPath = ''
-  placeholder = ''
-  placeholderChar = '␚'
+  outputFolder: string;
+  outputPath = "";
+  publicPath = "";
+  placeholder = "";
+  placeholderChar = "␚";
 
   constructor(options?: SvgSpritePluginOptions) {
     this.defaultBehavior = options?.defaultBehavior ?? "global";
     this.optimize = options?.optimize ?? true;
     this.symbolParser = options?.symbolParser ?? parseSymbolId;
     this.typeDetector = options?.typeDetector ?? detectImportType;
-    this.outputFolder = options?.outputFolder ?? 'sprites';
+    this.outputFolder = options?.outputFolder ?? "sprites";
   }
 
   apply(compiler: Compiler): void {
-    this.outputPath = this.outputFolder
-    this.publicPath = [
-      compiler.options.output.publicPath,
-      this.outputPath
-    ].filter(Boolean).join('/').replace(/\/\/+/g, '/')
-    const hashLen = 37
-    const holderLen = this.publicPath.length
+    this.outputPath = this.outputFolder;
+    this.publicPath = [compiler.options.output.publicPath, this.outputPath]
+      .filter(Boolean)
+      .join("/")
+      .replace(/\/\/+/g, "/");
+    const hashLen = 37;
+    const holderLen = this.publicPath.length;
     this.placeholder = this.placeholderChar.repeat(holderLen + hashLen);
     this.tapInCompilation(compiler);
   }
@@ -139,7 +139,7 @@ export class SvgSpritePlugin {
     compilation.hooks.optimize.tap(pluginName, () => {
       this.emitSprites(compilation);
       this.materializePlaceholders(compilation);
-    })
+    });
   }
 
   /** @FIXME: Sprites should be emitted as chunks and integrated into the
@@ -147,9 +147,10 @@ export class SvgSpritePlugin {
   emitSprites(compilation: Compilation): void {
     for (const [path, sprite] of this.sprites.entries()) {
       const content = this.getSpriteContent(sprite);
-      const source = new webpack.sources.RawSource(content)
+      const source = new webpack.sources.RawSource(content);
       const checksum = hashStr(content);
-      const target = compilation.compiler.options.mode === 'production' ? checksum : path
+      const target =
+        compilation.compiler.options.mode === "production" ? checksum : path;
       this.checksums.set(path, checksum);
       compilation.emitAsset(this.getSvgAbsPath(target), source);
     }
@@ -157,82 +158,103 @@ export class SvgSpritePlugin {
 
   /** Materialize placeholder in a specific module. This only works because the
    * placeholder is the same length as the sprite path */
-  replaceSpritePlaceholder(spritePath: string, resourcePath: string, compilation: Compilation): void {
+  replaceSpritePlaceholder(
+    spritePath: string,
+    resourcePath: string,
+    compilation: Compilation
+  ): void {
     try {
       const mod = this.getResourceModule(resourcePath, compilation);
       // @ts-ignore
-      const source: Source = mod._source
-      const content = source.source().toString()
+      const source: Source = mod._source;
+      const content = source.source().toString();
       const newSource = content.replace(this.placeholder, spritePath);
       // @ts-ignore
       mod._source = mod.createSource(
-        mod.context || '',
+        mod.context || "",
         newSource,
         null,
         compilation.compiler.root
       );
     } catch (e) {
-      if (!e.message.startsWith('Failed to identify webpack module')) {
-        throw e
+      if (!e.message.startsWith("Failed to identify webpack module")) {
+        throw e;
       }
     }
   }
 
-  replaceSpritePlaceholders(spritePath: string, sprite: SpriteMap, compilation: Compilation): void {
+  replaceSpritePlaceholders(
+    spritePath: string,
+    sprite: SpriteMap,
+    compilation: Compilation
+  ): void {
     for (const svg of sprite.values()) {
-      this.replaceSpritePlaceholder(spritePath, svg.resourcePath, compilation)
+      this.replaceSpritePlaceholder(spritePath, svg.resourcePath, compilation);
     }
   }
 
   materializePlaceholders(compilation: Compilation): void {
     for (const [path, sprite] of this.sprites.entries()) {
-      const checksum = this.checksums.get(path)
+      const checksum = this.checksums.get(path);
       if (checksum) {
-        const spritePath = compilation.compiler.options.mode === 'production'
-          ? this.getSvgPublicPath(checksum)
-          : this.getSvgPublicPath(path);
-        this.replaceSpritePlaceholders(spritePath, sprite, compilation)
+        const spritePath =
+          compilation.compiler.options.mode === "production"
+            ? this.getSvgPublicPath(checksum)
+            : this.getSvgPublicPath(path);
+        this.replaceSpritePlaceholders(spritePath, sprite, compilation);
       } else {
-        throw new Error(`Failed to find checksum for ${path} in webpack-svg-sprite-loader.`)
+        throw new Error(
+          `Failed to find checksum for ${path} in webpack-svg-sprite-loader.`
+        );
       }
     }
   }
 
-  getResourceModule(resourcePath: string, compilation: Compilation): NormalModule {
+  getResourceModule(
+    resourcePath: string,
+    compilation: Compilation
+  ): NormalModule {
     for (const mod of compilation.modules.values()) {
-      const m = mod as NormalModule
+      const m = mod as NormalModule;
       if (m.resource === resourcePath) {
-        return m
+        return m;
       }
     }
     throw new Error(`Failed to identify webpack module for "${resourcePath}"`);
   }
 
-  getResourceEntrypoint(resourcePath: string, compilation: Compilation): NormalModule {
-    const mod = this.getResourceModule(resourcePath, compilation)
-    let entry = mod
+  getResourceEntrypoint(
+    resourcePath: string,
+    compilation: Compilation
+  ): NormalModule {
+    const mod = this.getResourceModule(resourcePath, compilation);
+    let entry = mod;
     while (true) {
-      const issuer = compilation.moduleGraph.getIssuer(entry)
+      const issuer = compilation.moduleGraph.getIssuer(entry);
       if (issuer && issuer !== mod) {
-        entry = issuer as NormalModule
+        entry = issuer as NormalModule;
       } else {
-        const dep = entry.dependencies.find(dep => compilation.moduleGraph.getModule(dep) === entry)
+        const dep = entry.dependencies.find(
+          (dep) => compilation.moduleGraph.getModule(dep) === entry
+        );
         if (dep) {
-          const parent = compilation.moduleGraph.getParentModule(dep)
+          const parent = compilation.moduleGraph.getParentModule(dep);
           if (parent && parent !== entry) {
-            entry = parent as NormalModule
+            entry = parent as NormalModule;
           } else {
-            break
+            break;
           }
         } else {
-          break
+          break;
         }
       }
     }
     if (entry) {
-      return entry
+      return entry;
     }
-    throw new Error(`Failed to identify webpack entry point for "${resourcePath}"`);
+    throw new Error(
+      `Failed to identify webpack entry point for "${resourcePath}"`
+    );
   }
 
   getGlobalSpritePath(): string {
@@ -240,30 +262,36 @@ export class SvgSpritePlugin {
   }
 
   getSvgAbsPath(name: string): string {
-    return join(this.outputPath, `${name}.svg`)
+    return join(this.outputPath, `${name}.svg`);
   }
 
   getSvgPublicPath(name: string): string {
-    return join(this.publicPath, `${name}.svg`)
+    return join(this.publicPath, `${name}.svg`);
   }
 
-  getEntrypointSpritePath(resourcePath: string, compilation: Compilation): string {
+  getEntrypointSpritePath(
+    resourcePath: string,
+    compilation: Compilation
+  ): string {
     const entrypoint = this.getResourceEntrypoint(resourcePath, compilation);
-    const entrypointPath = entrypoint.resource
+    const entrypointPath = entrypoint.resource;
     if (entrypointPath) {
       return hashStr(entrypointPath);
     }
     return this.getGlobalSpritePath();
   }
 
-  getModuleIssuer(resourcePath: string, compilation: Compilation): Module | null {
+  getModuleIssuer(
+    resourcePath: string,
+    compilation: Compilation
+  ): Module | null {
     const mod = this.getResourceModule(resourcePath, compilation);
-    return compilation.moduleGraph.getIssuer(mod)
+    return compilation.moduleGraph.getIssuer(mod);
   }
 
   getModuleSpritePath(resourcePath: string, compilation: Compilation): string {
-    const issuer = this.getModuleIssuer(resourcePath, compilation)
-    const issuerPath = (issuer as NormalModule)?.resource
+    const issuer = this.getModuleIssuer(resourcePath, compilation);
+    const issuerPath = (issuer as NormalModule)?.resource;
     if (issuerPath) {
       return hashStr(issuerPath);
     }
@@ -313,14 +341,14 @@ export class SvgSpritePlugin {
     const svgs = Array.from(sprite.entries())
       .sort(([a], [b]) => {
         if (a > b) {
-          return 1
+          return 1;
         }
         if (b > a) {
-          return -1
+          return -1;
         }
-        return 0
+        return 0;
       })
-      .map(([,svg]) => this.serializeSvg(svg))
+      .map(([, svg]) => this.serializeSvg(svg))
       .join("");
     return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">${svgs}</svg>`;
   }

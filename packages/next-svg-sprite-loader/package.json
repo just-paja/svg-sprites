@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "author": "pavel@zak.global",
-  "type": "module",
+  "type": "commonjs",
   "license": "MIT",
   "main": "dist/index.js",
   "keywords": [
