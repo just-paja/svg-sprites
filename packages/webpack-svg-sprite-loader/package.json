@@ -30,6 +30,9 @@
     "next",
     "nextjs"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "svgo": "^3.2.0"
   },
