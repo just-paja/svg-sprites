@@ -1,1 +1,1 @@
-export * from "./barel.jsx";
+export * from './barel.jsx'

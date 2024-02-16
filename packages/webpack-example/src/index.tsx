@@ -1,18 +1,18 @@
-import React from 'react'
+import React from "react";
 
-import { createRoot } from 'react-dom/client'
-import { SvgSymbolImport } from 'webpack-svg-sprite-loader'
+import { createRoot } from "react-dom/client";
+import { SvgSymbolImport } from "webpack-svg-sprite-loader";
 
 import * as def from "./default";
 import * as glob from "./global";
-import * as inline from "./inline";
+// import * as inline from "./inline";
 import * as mod from "./module";
 import * as raw from "./raw";
 
-const body = document.querySelector('body')
+const body = document.querySelector("body");
 
 interface IconProps {
-  svg: SvgSymbolImport 
+  svg: SvgSymbolImport;
 }
 
 function GlobalStyles() {
@@ -51,16 +51,20 @@ dl dt {
   margin-right: 1rem;
 }
 
-  `
-  return <style>{css}</style>
+  `;
+  return <style>{css}</style>;
 }
 
 function RawIcon({ svg }: { svg: string }) {
-  return <div><svg dangerouslySetInnerHTML={{ __html: svg }}/></div>
+  return (
+    <div>
+      {/* rome-ignore lint/security/noDangerouslySetInnerHtml: It is supposed to work like this */}
+      <svg dangerouslySetInnerHTML={{ __html: svg }} />
+    </div>
+  );
 }
 
 function Icon({ svg }: IconProps) {
-  console.log(svg);
   return (
     <div className="icon-details">
       <div className="icon-render">
@@ -72,7 +76,9 @@ function Icon({ svg }: IconProps) {
       <dl>
         <div>
           <dt>spritePath</dt>
-          <dd><a href={svg.spritePath}>{svg.spritePath}</a></dd>
+          <dd>
+            <a href={svg.spritePath}>{svg.spritePath}</a>
+          </dd>
         </div>
         <div>
           <dt>symbolId</dt>
@@ -80,7 +86,11 @@ function Icon({ svg }: IconProps) {
         </div>
         <div>
           <dt>attributes</dt>
-          <dd>{Object.entries(svg.attributes).map(([k,v]) => `${k}: ${v}`).join(', ')}</dd>
+          <dd>
+            {Object.entries(svg.attributes)
+              .map(([k, v]) => `${k}: ${v}`)
+              .join(", ")}
+          </dd>
         </div>
       </dl>
     </div>
@@ -88,24 +98,26 @@ function Icon({ svg }: IconProps) {
 }
 
 interface ModuleProps {
-  title: string
-  description?: string
-  icons: Record<string, SvgSymbolImport|string>
+  title: string;
+  description?: string;
+  icons: Record<string, SvgSymbolImport | string>;
 }
 
 function Module({ description, icons, title }: ModuleProps) {
-  const render = Object.values(icons).map(
-    icon => typeof icon === 'string'
-      ? <RawIcon svg={icon} key={icon} />
-      : <Icon svg={icon} key={icon.symbolId} />
-  )
+  const render = Object.values(icons).map((icon) => {
+    return typeof icon === "string" ? (
+      <RawIcon svg={icon} key={icon} />
+    ) : (
+      <Icon svg={icon} key={icon.symbolId} />
+    );
+  });
   return (
     <section>
       <h1>{title}</h1>
       <p>{description}</p>
       {render}
     </section>
-  )
+  );
 }
 
 function App() {
@@ -133,15 +145,15 @@ function App() {
         icons={raw}
       />
     </>
-  )
+  );
 }
 
 if (body) {
-  const el = document.createElement('div')
+  const el = document.createElement("div");
   const root = createRoot(el);
-  
-  body.appendChild(el)
+
+  body.appendChild(el);
   root.render(<App />);
-} else { 
-  console.error('No body')
+} else {
+  console.error("No body");
 }

@@ -1,1 +1,1 @@
-export const pluginName = "webpack-svg-sprite-loader";
+export const pluginName = 'webpack-svg-sprite-loader'

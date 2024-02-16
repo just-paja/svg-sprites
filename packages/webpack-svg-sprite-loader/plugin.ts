@@ -1,12 +1,12 @@
-import type { Compilation, Compiler, Module, NormalModule } from "webpack";
 import type { SvgAttributes } from "./transform.js";
 import type { Config as SvgoConfig } from "svgo";
+import type { Compilation, Compiler, Module, NormalModule } from "webpack";
 
 import webpack from "webpack";
 
 import { hashStr } from "./checksum.js";
-import { join, relative } from "path";
 import { pluginName } from "./constants.js";
+import { join, relative } from "path";
 import { optimize } from "svgo";
 
 export type SpriteType = "global" | "module" | "entry" | "raw" | "inline";
@@ -57,7 +57,7 @@ function detectImportType(resourcePath: string): SpriteType | null {
 type SpriteMap = Map<string, ContentfulSvgSymbol>;
 
 export class SvgSpritePlugin {
-  readonly PLUGIN_NAME = pluginName;
+  readonly pluginName = pluginName;
   readonly defaultBehavior: SpriteType;
   readonly optimize: boolean;
   readonly symbolParser: SymbolIdParser;
@@ -166,7 +166,7 @@ export class SvgSpritePlugin {
     try {
       const mod = this.getResourceModule(resourcePath, compilation);
       // @ts-ignore
-      const source: Source = mod._source;
+      const source: webpack.sources.Source = mod._source;
       const content = source.source().toString();
       const newSource = content.replace(this.placeholder, spritePath);
       // @ts-ignore
@@ -229,6 +229,7 @@ export class SvgSpritePlugin {
   ): NormalModule {
     const mod = this.getResourceModule(resourcePath, compilation);
     let entry = mod;
+    // rome-ignore lint/nursery/noConstantCondition: We have it under control
     while (true) {
       const issuer = compilation.moduleGraph.getIssuer(entry);
       if (issuer && issuer !== mod) {
@@ -320,7 +321,7 @@ export class SvgSpritePlugin {
   getOrCreateSprite(spriteFilePath: string): SpriteMap {
     try {
       return this.getSprite(spriteFilePath);
-    } catch (e) {
+    } catch (_e) {
       const sprite = new Map<string, ContentfulSvgSymbol>();
       this.sprites.set(spriteFilePath, sprite);
       return sprite;

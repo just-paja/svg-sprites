@@ -1,8 +1,8 @@
-import path from "path";
-import { fileURLToPath } from "url";
-import TerserJSPlugin from "terser-webpack-plugin";
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import path from "path";
+import TerserJSPlugin from "terser-webpack-plugin";
+import { fileURLToPath } from "url";
 import { SvgSpritePlugin } from "webpack-svg-sprite-loader";
 
 const __filename = fileURLToPath(import.meta.url);
