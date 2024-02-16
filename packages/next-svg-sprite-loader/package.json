@@ -33,6 +33,10 @@
   "dependencies": {
     "loader-utils": "^3.2.1",
     "svgo": "^3.2.0",
-    "webpack-svg-sprite-loader": "file:../webpack-svg-sprite-loader"
-  }
+    "webpack-svg-sprite-loader": "^1.1.2"
+  },
+  "files": [
+    "dist/*"
+  ],
+  "gitHead": "8ca658182314b63e04b5051532845fa8fa8f4d40"
 }
