@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.2](https://github.com/just-paja/svg-sprites/compare/v1.1.1...v1.1.2) (2024-02-16)
+
+
+### Bug Fixes
+
+* pass env to node setup ([10bf4f9](https://github.com/just-paja/svg-sprites/commit/10bf4f9cf1aa39151502158aa71594a9e94b62a3))
+
+
+
+
+
 ## [1.1.1](https://github.com/just-paja/svg-sprites/compare/v1.1.0...v1.1.1) (2024-02-16)
 
 
