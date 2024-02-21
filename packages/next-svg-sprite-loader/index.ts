@@ -56,6 +56,6 @@ export function configSvgSprites(
   // And at last we plug in the SVG loader
   config.module.rules.push({
     test: /\.svg$/,
-    loader: "webpack-svg-sprite-loader",
+    loader: "@jebka/webpack-svg-sprite-loader",
   });
 }
