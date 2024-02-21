@@ -1,11 +1,11 @@
-# `webpack-svg-sprite-loader`
+# `@jebka/webpack-svg-sprite-loader`
 
 Loader for webpack, that helps you split SVGs into sprites based on the SVG
 name and the entry point. This plugins should be useful for React, React-like
 and JSX apps.
 
 If you're using Next.js, you might want to check out
-[next-svg-sprite-loader](../next-svg-sprite-loader).
+[@jebka/next-svg-sprite-loader](../next-svg-sprite-loader).
 
 ## Why
 
@@ -29,11 +29,11 @@ This loader let's you decide how to optimize your SVGs.
 ## Install
 
 ```
-npm install --save-dev webpack-svg-sprites
+npm install --save-dev @jebka/webpack-svg-sprite-loader
 ```
 
 ```
-yarn add -D webpack-svg-sprites
+yarn add -D @jebka/webpack-svg-sprite-loader
 ```
 
 ## Configure
@@ -76,7 +76,7 @@ Put the plugin in your Webpack plugins. All options are optional and defaults
 should be good enough for most projects.
 
 ```javascript
-import SvgSpriteLoader from "webpack-svg-sprite-loader";
+import SvgSpriteLoader from "@jebka/webpack-svg-sprite-loader";
 
 {
   // ...
@@ -97,7 +97,7 @@ And this in your webpack loaders
   loaders: [
     {
       test: /\.svg$/,
-      loader: "webpack-svg-sprite-loader",
+      loader: "@jebka/webpack-svg-sprite-loader",
     },
   ];
   // ...
@@ -174,7 +174,7 @@ You will need to cast your SVG imports at your own. Create a `svg.d.ts` file
 in your project:
 
 ```
-import type { SvgSymbolImport } from 'webpack-svg-sprite-loader';
+import type { SvgSymbolImport } from '@jebka/webpack-svg-sprite-loader';
 
 // based on your import paths
 declare module '*.module.svg' {

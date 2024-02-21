@@ -1,7 +1,7 @@
 import React from "react";
 
 import { createRoot } from "react-dom/client";
-import { SvgSymbolImport } from "webpack-svg-sprite-loader";
+import { SvgSymbolImport } from "@jebka/webpack-svg-sprite-loader";
 
 import * as def from "./default";
 import * as glob from "./global";

@@ -3,7 +3,7 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import path from "path";
 import TerserJSPlugin from "terser-webpack-plugin";
 import { fileURLToPath } from "url";
-import { SvgSpritePlugin } from "webpack-svg-sprite-loader";
+import { SvgSpritePlugin } from "@jebka/webpack-svg-sprite-loader";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -35,7 +35,7 @@ export default {
         test: /\.svg$/,
         use: [
           {
-            loader: "webpack-svg-sprite-loader",
+            loader: "@jebka/webpack-svg-sprite-loader",
           },
         ],
       },

@@ -2,7 +2,7 @@ import type { Configuration, RuleSetRule } from "webpack";
 import {
   SvgSpritePlugin,
   SvgSpritePluginOptions,
-} from "webpack-svg-sprite-loader";
+} from "@jebka/webpack-svg-sprite-loader";
 
 function findNextImageLoader(config: Configuration): RuleSetRule | null {
   const nextImageLoader = config?.module?.rules?.find((rule) => {

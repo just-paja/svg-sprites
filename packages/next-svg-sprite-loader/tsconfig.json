@@ -5,8 +5,5 @@
     "baseUrl": ".",
     "outDir": "./dist"
   },
-  "include": [
-    "./*.ts",
-    "webpack-svg-sprite-loader/types.d.ts"
-  ]
+  "include": ["./*.ts", "@jebka/webpack-svg-sprite-loader/types.d.ts"]
 }

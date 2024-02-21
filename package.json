@@ -5,9 +5,9 @@
   "description": "",
   "scripts": {
     "build": "lerna run build",
-    "build:loaders": "lerna run build --scope webpack-svg-sprite-loader --scope next-svg-sprite-loader",
-    "build:loader:webpack": "lerna run build --scope webpack-svg-sprite-loader",
-    "build:examples": "lerna run build --scope webpack-example",
+    "build:loaders": "lerna run build --scope @jebka/webpack-svg-sprite-loader --scope @jebka/next-svg-sprite-loader",
+    "build:loader:webpack": "lerna run build --scope @jebka/webpack-svg-sprite-loader",
+    "build:examples": "lerna run build --scope @jebka/webpack-example",
     "clean": "lerna run clean",
     "lint": "rome check ."
   },

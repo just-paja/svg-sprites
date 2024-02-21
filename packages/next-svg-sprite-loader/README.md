@@ -1,15 +1,15 @@
-# `next-svg-sprite-loader`
+# `@jebka/next-svg-sprite-loader`
 
-> Integrate [webpack-svg-sprite-loader](https://github.com/just-paja/svg-sprites/tree/master/packages/webpack-svg-sprite-loader) into Next.js configuration
+> Integrate [@jebka/webpack-svg-sprite-loader](https://github.com/just-paja/svg-sprites/tree/master/packages/webpack-svg-sprite-loader) into Next.js configuration
 
-This plugin is just a convenience package to make webpack-svg-sprite-loader
-work. All the steps can be done manually. See the [docs of
-webpack-svg-sprite-loader](https://github.com/just-paja/svg-sprites/tree/master/packages/webpack-svg-sprite-loader).
+This is just a convenience package to make @jebka/webpack-svg-sprite-loader
+work with less configuration. All the steps can be done manually. See the [docs of
+@jebka/webpack-svg-sprite-loader](https://github.com/just-paja/svg-sprites/tree/master/packages/webpack-svg-sprite-loader).
 
 # Installation
 
 ```
-npm install --save-dev next-svg-sprite-loader
+npm install --save-dev @jebka/next-svg-sprite-loader
 ```
 
 # Configuration
@@ -20,7 +20,7 @@ inside the webpack config hook function.
 The convenience function mutates the config and also returns the same instance.
 
 ```javascript
-import { configSvgSprites } from "next-svg-sprite-loader";
+import { configSvgSprites } from "@jebka/next-svg-sprite-loader";
 
 export default {
   webpack(config) {
