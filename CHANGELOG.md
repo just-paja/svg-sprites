@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.5](https://github.com/just-paja/svg-sprites/compare/v1.1.4...v1.1.5) (2024-02-21)
+
+
+### Bug Fixes
+
+* bind with jebka package ([788599e](https://github.com/just-paja/svg-sprites/commit/788599e2a2d6670a555656ba3026371ed02b4f55))
+
+
+
+
+
 ## [1.1.4](https://github.com/just-paja/svg-sprites/compare/v1.1.3...v1.1.4) (2024-02-21)
 
 
