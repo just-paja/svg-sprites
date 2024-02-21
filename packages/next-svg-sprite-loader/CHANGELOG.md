@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.7](https://github.com/just-paja/svg-sprites/compare/v1.1.6...v1.1.7) (2024-02-21)
+
+
+### Bug Fixes
+
+* point to local package ([a1846b5](https://github.com/just-paja/svg-sprites/commit/a1846b57fedef3dbaec5c14c377a36c2c1725023))
+
+
+
+
+
 ## [1.1.6](https://github.com/just-paja/svg-sprites/compare/v1.1.5...v1.1.6) (2024-02-21)
 
 **Note:** Version bump only for package @jebka/next-svg-sprite-loader
