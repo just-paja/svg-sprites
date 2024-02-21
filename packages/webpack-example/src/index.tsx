@@ -1,18 +1,18 @@
-import React from "react";
+import React from 'react'
 
-import { createRoot } from "react-dom/client";
-import { SvgSymbolImport } from "@jebka/webpack-svg-sprite-loader";
+import { SvgSymbolImport } from '@jebka/webpack-svg-sprite-loader'
+import { createRoot } from 'react-dom/client'
 
-import * as def from "./default";
-import * as glob from "./global";
+import * as def from './default'
+import * as glob from './global'
 // import * as inline from "./inline";
-import * as mod from "./module";
-import * as raw from "./raw";
+import * as mod from './module'
+import * as raw from './raw'
 
-const body = document.querySelector("body");
+const body = document.querySelector('body')
 
 interface IconProps {
-  svg: SvgSymbolImport;
+  svg: SvgSymbolImport
 }
 
 function GlobalStyles() {
@@ -51,8 +51,8 @@ dl dt {
   margin-right: 1rem;
 }
 
-  `;
-  return <style>{css}</style>;
+  `
+  return <style>{css}</style>
 }
 
 function RawIcon({ svg }: { svg: string }) {
@@ -61,13 +61,13 @@ function RawIcon({ svg }: { svg: string }) {
       {/* rome-ignore lint/security/noDangerouslySetInnerHtml: It is supposed to work like this */}
       <svg dangerouslySetInnerHTML={{ __html: svg }} />
     </div>
-  );
+  )
 }
 
 function Icon({ svg }: IconProps) {
   return (
-    <div className="icon-details">
-      <div className="icon-render">
+    <div className='icon-details'>
+      <div className='icon-render'>
         <svg {...svg.attributes}>
           <title>test</title>
           <use href={`${svg.spritePath}#${svg.symbolId}`} />
@@ -89,35 +89,35 @@ function Icon({ svg }: IconProps) {
           <dd>
             {Object.entries(svg.attributes)
               .map(([k, v]) => `${k}: ${v}`)
-              .join(", ")}
+              .join(', ')}
           </dd>
         </div>
       </dl>
     </div>
-  );
+  )
 }
 
 interface ModuleProps {
-  title: string;
-  description?: string;
-  icons: Record<string, SvgSymbolImport | string>;
+  title: string
+  description?: string
+  icons: Record<string, SvgSymbolImport | string>
 }
 
 function Module({ description, icons, title }: ModuleProps) {
   const render = Object.values(icons).map((icon) => {
-    return typeof icon === "string" ? (
+    return typeof icon === 'string' ? (
       <RawIcon svg={icon} key={icon} />
     ) : (
       <Icon svg={icon} key={icon.symbolId} />
-    );
-  });
+    )
+  })
   return (
     <section>
       <h1>{title}</h1>
       <p>{description}</p>
       {render}
     </section>
-  );
+  )
 }
 
 function App() {
@@ -125,35 +125,35 @@ function App() {
     <>
       <GlobalStyles />
       <Module
-        title="Default"
-        description="Default behaviour is to pull all SVGs into the global sprite"
+        title='Default'
+        description='Default behaviour is to pull all SVGs into the global sprite'
         icons={def}
       />
       <Module
-        title="Global"
-        description="This sprite consolidates global SVGs"
+        title='Global'
+        description='This sprite consolidates global SVGs'
         icons={glob}
       />
       <Module
-        title="Module"
-        description="This sprite consolidates module SVGs"
+        title='Module'
+        description='This sprite consolidates module SVGs'
         icons={mod}
       />
       <Module
-        title="Raw"
-        description="RAW icons return only strings"
+        title='Raw'
+        description='RAW icons return only strings'
         icons={raw}
       />
     </>
-  );
+  )
 }
 
 if (body) {
-  const el = document.createElement("div");
-  const root = createRoot(el);
+  const el = document.createElement('div')
+  const root = createRoot(el)
 
-  body.appendChild(el);
-  root.render(<App />);
+  body.appendChild(el)
+  root.render(<App />)
 } else {
-  console.error("No body");
+  console.error('No body')
 }

@@ -1,41 +1,41 @@
-import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
-import HtmlWebpackPlugin from "html-webpack-plugin";
-import path from "path";
-import TerserJSPlugin from "terser-webpack-plugin";
-import { fileURLToPath } from "url";
-import { SvgSpritePlugin } from "@jebka/webpack-svg-sprite-loader";
+import { SvgSpritePlugin } from '@jebka/webpack-svg-sprite-loader'
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import path from 'path'
+import TerserJSPlugin from 'terser-webpack-plugin'
+import { fileURLToPath } from 'url'
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 export default {
   context: __dirname,
   entry: {
-    index: `${path.resolve(__dirname, "./src/index.tsx")}`,
-    entry: `${path.resolve(__dirname, "./src/entrypoint/index.tsx")}`,
+    index: `${path.resolve(__dirname, './src/index.tsx')}`,
+    entry: `${path.resolve(__dirname, './src/entrypoint/index.tsx')}`,
   },
   cache: {
-    type: "filesystem",
+    type: 'filesystem',
   },
   resolve: {
     // Add `.ts` and `.tsx` as a resolvable extension.
-    extensions: [".ts", ".tsx", ".js"],
+    extensions: ['.ts', '.tsx', '.js'],
     // Add support for TypeScripts fully qualified ESM imports.
     extensionAlias: {
-      ".js": [".js", ".ts"],
-      ".jsx": [".js", ".ts", ".tsx"],
-      ".cjs": [".cjs", ".cts"],
-      ".mjs": [".mjs", ".mts"],
+      '.js': ['.js', '.ts'],
+      '.jsx': ['.js', '.ts', '.tsx'],
+      '.cjs': ['.cjs', '.cts'],
+      '.mjs': ['.mjs', '.mts'],
     },
   },
   module: {
     rules: [
-      { test: /\.([cm]?ts|tsx)$/, loader: "ts-loader" },
+      { test: /\.([cm]?ts|tsx)$/, loader: 'ts-loader' },
       {
         test: /\.svg$/,
         use: [
           {
-            loader: "@jebka/webpack-svg-sprite-loader",
+            loader: '@jebka/webpack-svg-sprite-loader',
           },
         ],
       },
@@ -54,7 +54,7 @@ export default {
     children: false,
     entrypoints: false,
     excludeAssets: /.map$/,
-    assetsSort: "!size",
+    assetsSort: '!size',
   },
   optimization: {
     minimizer: [
@@ -63,7 +63,7 @@ export default {
       }),
       new CssMinimizerPlugin(),
     ],
-    chunkIds: "deterministic", // or 'named'
+    chunkIds: 'deterministic', // or 'named'
     removeAvailableModules: true,
     removeEmptyChunks: true,
     mergeDuplicateChunks: true,
@@ -71,4 +71,4 @@ export default {
     mangleWasmImports: true,
     splitChunks: false,
   },
-};
+}
