@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.4](https://github.com/just-paja/svg-sprites/compare/v1.1.3...v1.1.4) (2024-02-21)
+
+
+### Bug Fixes
+
+* put under organization [@jebka](https://github.com/jebka) ([40bdc75](https://github.com/just-paja/svg-sprites/commit/40bdc751f7b00d4edf0780ccc0978216705cad79))
+
+
+
+
+
 ## [1.1.3](https://github.com/just-paja/svg-sprites/compare/v1.1.2...v1.1.3) (2024-02-16)
 
 **Note:** Version bump only for package webpack-example
